@@ -10,8 +10,10 @@ fi
 . ${propertyFile}
 
 #beeline -u "${beeline_url}/${db_name}" --hivevar table_name=${table_name} -f hql/select_table.hql
-beeline -u "${beeline_url}/${db_name}" -n ${username} -p {password} --hivevar table_name=${table_name} -f hql/select_table.hql
+#beeline -u "${beeline_url}/${db_name}" -n ${username} -p {password} --hivevar table_name=${table_name} -f hql/select_table.hql
 
 hadoop fs -ls /tmp/test/$env/
+catchData=$(beeline -u "${beeline_url}/${db_name}" -n ${username} -p {password} -e "select count(*) from framework_test")
+echo "Countresult:"$catchData
 
 echo "Completed"
